@@ -1,22 +1,24 @@
 const Review = require('../model/Review');
 
+
 const getAllReviews = async (req, res) => {
     const reviews = await Review.find();
     if (!reviews) return res.status(204).json({ 'message': 'No reviews found.' });
     res.json(reviews);
 }
-
 const createNewReview = async (req, res) => {
-  const { studentName, reviewText } = req.body;
-
-  try {
-    const createdReview = await Review.create({ studentName, reviewText });
-    res.status(201).json(createdReview); // Return the created review as the response
-  } catch (error) {
-    res.status(500).json({ error: error.message || 'Failed to create review' });
-  }
-};
-
+    const { studentName, reviewText ,companyName,branch} = req.body;
+  
+    try {
+      const currentDateTime = new Date();
+      const currentDate = currentDateTime.toISOString().split('T')[0];
+      const createdReview = await Review.create({ currentDate,studentName, reviewText ,companyName,branch});
+      res.status(201).json(createdReview); // Return the created review as the response
+    } catch (error) {
+        console.log('error at backend')
+      res.status(500).json({ error: error.message || 'Failed to create review' });
+    }
+  };
 
 const updateReview = async(req,res)=>{
     if (!req?.body?.id) {
