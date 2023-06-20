@@ -47,7 +47,10 @@ app.use('/logout', require('./routes/logout'));
 app.use('/users', require('./routes/api/users'));
 app.use('/reviews',require('./routes/api/reviews'));
 app.use('/companies',require('./routes/api/companies'));
-app.use('/coding',require('./routes/api/coding'));
+app.use('/adminregister',require('./routes/adminregister'));
+app.use('/adminauth',require('./routes/adminauth'));
+
+
 
 
 app.all('*', (req, res) => {
